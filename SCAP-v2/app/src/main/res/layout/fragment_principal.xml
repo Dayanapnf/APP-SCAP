@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.PrincipalFragment">
+
+    <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+        android:id="@+id/carousel"
+        android:layout_width="match_parent"
+        android:layout_height="256dp"
+        app:autoPlay="true"
+        app:showCaption="true"
+        app:captionMargin="0dp"
+        app:captionTextSize="14sp"
+        app:autoPlayDelay="3000"
+        app:infiniteCarousel="true"
+        app:showNavigationButtons="true"
+        app:imageScaleType="fitXY"
+        app:imagePlaceholder="@drawable/equipe"
+        app:carouselBackground="#00000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingClass" >
+
+    </org.imaginativeworld.whynotimagecarousel.ImageCarousel>
+
+    <TextView
+        android:id="@+id/textUltimasAtividades"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Últimas Atividades"
+        android:textColor="@color/azul_pet3"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.066"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/carousel" />
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="409dp"
+        android:layout_height="414dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textUltimasAtividades"
+        app:rowCount="3"
+        android:layout_margin="2dp"
+        app:columnCount="2"
+        tools:ignore="MissingConstraints">
+
+        <!--alfabetização digital-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_projeto3"
+            app:layout_rowWeight="1"
+            app:layout_columnWeight="1"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="15dp"
+            android:elevation="0dp"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/ivProjeto03"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/projeto03"
+                    android:layout_centerInParent="true"/>
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <!--folha de dicas-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_projeto2"
+            app:layout_rowWeight="1"
+            app:layout_columnWeight="1"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="15dp"
+            android:elevation="0dp"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/black">
+                <ImageView
+                    android:id="@+id/ivProjeto02"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/projeto02"
+                    android:layout_centerInParent="true"/>
+
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <!--pensapet-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_projeto5"
+            app:layout_rowWeight="1"
+            app:layout_columnWeight="1"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="15dp"
+            android:elevation="0dp"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/laranja">
+
+                <ImageView
+                    android:id="@+id/ivProjeto05"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/projeto05"
+                    android:layout_centerInParent="true"/>
+
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <!--cinepet -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_projeto6"
+            app:layout_rowWeight="1"
+            app:layout_columnWeight="1"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="15dp"
+            android:elevation="0dp"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/cinepet">
+                <ImageView
+                    android:id="@+id/ivProjeto06"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/projeto06"
+                    android:layout_centerInParent="true"/>
+
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <!--receba ufc-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_projeto"
+            app:layout_rowWeight="1"
+            app:layout_columnWeight="1"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="15dp"
+            android:elevation="0dp"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/ivProjeto01"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/projeto01"
+                    android:layout_centerInParent="true"/>
+
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <!--petalking-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_projeto4"
+            app:layout_rowWeight="1"
+            app:layout_columnWeight="1"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="15dp"
+            android:elevation="0dp"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_petalking">
+                <ImageView
+                    android:id="@+id/ivProjeto04"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/projeto04"
+                    android:layout_centerInParent="true"/>
+
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.gridlayout.widget.GridLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

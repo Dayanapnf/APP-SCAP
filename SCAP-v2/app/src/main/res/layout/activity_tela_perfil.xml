@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TelaPerfil">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/view_foto_perfil"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/container_user"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="24dp"
+                android:src="@drawable/ic_baseline_camera_alt_24"
+                app:layout_constraintBottom_toBottomOf="@+id/view_foto_perfil"
+                app:layout_constraintEnd_toEndOf="@+id/view_foto_perfil"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/view_foto_perfil"
+                app:layout_constraintTop_toTopOf="@+id/view_foto_perfil"
+                app:layout_constraintVertical_bias="0.6" />
+
+            <View
+                android:id="@+id/containerComponents_cadastro"
+                style="@style/ContainerComponents"
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_foto_perfil" />
+
+            <RadioGroup
+                android:id="@+id/radiogroup"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@id/containerComponents_cadastro"
+                app:layout_constraintStart_toStartOf="@id/containerComponents_cadastro"
+                app:layout_constraintTop_toTopOf="@id/containerComponents_cadastro"
+                >
+
+                <RadioButton
+                    style="@style/radio_group"
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    android:text="Tutor"
+                    android:textColor="@color/black" />
+
+                <RadioButton
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    style="@style/radio_group"
+                    android:text="Bolsista"
+                    android:textColor="@color/black"/>
+            </RadioGroup>
+            <EditText
+                android:id="@+id/edit_Nome"
+                style="@style/Edit_Text_perfil"
+                android:layout_marginTop="8dp"
+                android:hint="Nome"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="@id/containerComponents_cadastro"
+                app:layout_constraintStart_toStartOf="@id/containerComponents_cadastro"
+                app:layout_constraintTop_toBottomOf="@id/radiogroup"  />
+
+            <EditText
+                android:id="@+id/edit_email"
+                style="@style/Edit_Text_perfil"
+                android:layout_marginTop="12dp"
+                android:hint="Email"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="@id/containerComponents_cadastro"
+                app:layout_constraintStart_toStartOf="@id/containerComponents_cadastro"
+                app:layout_constraintTop_toBottomOf="@id/edit_Nome" />
+            <EditText
+                android:id="@+id/edit_senha"
+                style="@style/Edit_Text_perfil"
+                android:layout_marginTop="16dp"
+                android:hint="Senha"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="@id/containerComponents_cadastro"
+                app:layout_constraintStart_toStartOf="@id/containerComponents_cadastro"
+                app:layout_constraintTop_toBottomOf="@id/edit_email" />
+            <EditText
+                android:id="@+id/edit_endereço"
+                style="@style/Edit_Text_perfil"
+                android:layout_marginTop="16dp"
+                android:hint="Endereço"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="@id/containerComponents_cadastro"
+                app:layout_constraintStart_toStartOf="@id/containerComponents_cadastro"
+                app:layout_constraintTop_toBottomOf="@id/edit_senha" />
+            <EditText
+                android:id="@+id/edit_complemento"
+                style="@style/Edit_Text_perfil"
+                android:layout_marginTop="16dp"
+                android:hint="Complemento"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="@id/containerComponents_cadastro"
+                app:layout_constraintStart_toStartOf="@id/containerComponents_cadastro"
+                app:layout_constraintTop_toBottomOf="@id/edit_endereço"
+                />
+            <EditText
+                android:id="@+id/edit_cep"
+                style="@style/Edit_Text_numero"
+                android:layout_marginTop="16dp"
+                android:hint="Cep"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="@id/containerComponents_cadastro"
+                app:layout_constraintStart_toStartOf="@id/containerComponents_cadastro"
+                app:layout_constraintTop_toBottomOf="@id/edit_complemento"
+                />
+            <EditText
+                android:id="@+id/edit_numero"
+                style="@style/Edit_Text_numero"
+                android:layout_marginTop="16dp"
+                android:hint="Número"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="@id/containerComponents_cadastro"
+                app:layout_constraintStart_toStartOf="@id/containerComponents_cadastro"
+                app:layout_constraintTop_toBottomOf="@id/edit_cep"
+                />
+
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/mapView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="20dp"
+                app:layout_constraintEnd_toEndOf="@id/containerComponents_cadastro"
+                app:layout_constraintStart_toStartOf="@id/containerComponents_cadastro"
+                app:layout_constraintTop_toBottomOf="@id/edit_numero" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/bt_salvar"
+                style="@style/button"
+                android:layout_marginTop="20dp"
+                android:text="Salvar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mapView" />
+
+            <TextView
+                android:id="@+id/title_Sair"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="100dp"
+                android:fontFamily="serif-monospace"
+                android:text="Sair"
+                android:textColor="@color/azul_pet3"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bt_salvar" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</FrameLayout>
