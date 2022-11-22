@@ -89,8 +89,8 @@ public class MainActivity extends AppCompatActivity{
             case R.id.profile:
                 startActivity(new Intent(this,TelaPerfil.class));
                 break;
-            case R.id.adicionar:
-                startActivity(new Intent(this,FormAddAtividade.class));
+            case R.id.list_item:
+                startActivity(new Intent(this,ListarAtividade.class));
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + item.getItemId());

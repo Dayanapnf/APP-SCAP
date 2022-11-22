@@ -13,13 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import br.ufc.quixada.scap.Adapters.MinhasAtividadesAdapter;
-import br.ufc.quixada.scap.Controllers.Mensagens;
 import br.ufc.quixada.scap.Model.Atividades;
 import br.ufc.quixada.scap.fragments.AtividadesFragment;
 
 public class FormAddAtividade extends AppCompatActivity {
 
-   int id;
+    int id;
     EditText editNomeAtv, editDescricaoAtv, editObjetivoAtv, editMetodologiaAtv, editResultadosAtv,editAvaliacaoAtv;
     //RadioGroup option;
     AppCompatButton btnAdd;
@@ -31,9 +30,9 @@ public class FormAddAtividade extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_add_atividade);
-     //   getSupportActionBar().hide();
+        //   getSupportActionBar().hide();
 
-        id = -1;
+
 
         atividadesList = new ArrayList<Atividades>();
 
@@ -52,17 +51,12 @@ public class FormAddAtividade extends AppCompatActivity {
             public void onClick(View v) {
 
                 addAtividade(v);
-                System.out.println(v.toString());
+
             }
         });
 
     }
 
-    private void dataInitialize() {
-        if(getIntent().getExtras() != null){
-
-        }
-    }
 
     public ArrayList<Atividades> getAtividadesList() {
         return atividadesList;
@@ -83,33 +77,20 @@ public class FormAddAtividade extends AppCompatActivity {
         Atividades a = new Atividades(nomeAtv,descricaoAtv,objetivoAtv,metodologiaAtv,resultadosAtv,avaliacaoAtv);
 
         atividadesList.add(a);
-        Bundle bundle = new Bundle();
+
         Intent intent = new Intent(this, AtividadesFragment.class);
 
-        bundle.put(Mensagens.nomeAtv, nomeAtv);
-        intent.putE(Mensagens.descricaoAtv, descricaoAtv);
-        intent.putExtra(Mensagens.objetivoAtv, objetivoAtv);
-        intent.putExtra(Mensagens.metodologiaAtv, metodologiaAtv);
-        intent.putExtra(Mensagens.resultadosAtv, resultadosAtv);
-        intent.putExtra(Mensagens.avaliacaoAtv, avaliacaoAtv);
+        intent.putExtra("Nome", a.getNome_da_atividade());
+        intent.putExtra("Descricao", a.getDescricao_da_atividade());
+        intent.putExtra("Objetivo", a.getObjetivo_da_atividade());
+        intent.putExtra("Metodologia", a.getMetodologia_da_atividade());
+        intent.putExtra("Resultados", a.getResultados_da_atividade());
+        intent.putExtra("Avaliacao", a.getAvaliacao_da_atividade());
 
-        if(id >= 0) intent.putExtra(Mensagens.ID, " "+id);
-
-        setResult(Mensagens.OK, intent);
+        Toast.makeText( this, "Atividade Adicionada", Toast.LENGTH_LONG ).show();
         startActivity(intent);
 
 
-
-        adapter.notifyDataSetChanged();
-
-        editNomeAtv.setText(" ");
-        editDescricaoAtv.setText(" ");
-        editObjetivoAtv.setText(" ");
-        editMetodologiaAtv.setText(" ");
-        editResultadosAtv.setText(" ");
-        editAvaliacaoAtv.setText(" ");
-
-        Toast.makeText( this, "Atividade Adicionada", Toast.LENGTH_LONG ).show();
     }
 
 }
