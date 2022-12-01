@@ -2,13 +2,18 @@ package br.ufc.quixada.scap;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 
@@ -25,12 +30,43 @@ public class FormAddAtividade extends AppCompatActivity {
     ArrayList<Atividades> atividadesList;
     MinhasAtividadesAdapter adapter;
     RecyclerView recyclerViewAtividades;
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_add_atividade);
         //   getSupportActionBar().hide();
+
+        bottomNavigationView = findViewById(R.id.bottom_menu);
+
+
+        bottomNavigationView.setSelectedItemId(R.id.bottom_menu_adicionar );
+
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId())
+                {
+                    case R.id.bottom_menu_atividades:
+                        startActivity(new Intent(getApplicationContext(), Atividades.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.bottom_menu_inicio:
+                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.bottom_menu_adicionar:
+
+                        return true;
+                    case R.id.bottom_menu_pet:
+                        startActivity(new Intent(getApplicationContext(),Pet.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
 
 
 

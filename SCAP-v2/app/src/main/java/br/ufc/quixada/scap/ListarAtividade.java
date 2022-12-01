@@ -1,12 +1,12 @@
 package br.ufc.quixada.scap;
 
+import android.os.Bundle;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -14,6 +14,7 @@ import br.ufc.quixada.scap.Adapters.MinhasAtividadesAdapter;
 import br.ufc.quixada.scap.Model.Atividades;
 
 public class ListarAtividade extends AppCompatActivity {
+
     FormAddAtividade f;
     MinhasAtividadesAdapter adapter;
     RecyclerView recyclerView = findViewById(R.id.recycle_view_listar);
