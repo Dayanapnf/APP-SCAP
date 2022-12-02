@@ -20,6 +20,7 @@ public class FormLogin extends AppCompatActivity {
     private AppCompatButton appCompatButton;
     String email,senha;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,26 +40,12 @@ public class FormLogin extends AppCompatActivity {
         appCompatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                email = edit_email.getText().toString();
-                senha = edit_senha.getText().toString();
-
-                if(email.isEmpty() || senha.isEmpty()){
-                    Toast toast = Toast.makeText(getApplicationContext(), "Preencha todos os campos!", Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-                if(email.equals("admin") && senha.equals("admin")){
-                    Intent intent = new Intent(FormLogin.this, MainActivity.class);
-                    startActivity(intent);
-                }
-                else{
-                    Toast toast = Toast.makeText(getApplicationContext(), "Usuário ou Senha errada", Toast.LENGTH_SHORT);
-                    toast.show();
-
-                }
 
             }
         });
 
+
+        // visualizar/ocultar senha
         ImageView imageViewShowHidePwd = findViewById(R.id.olho_senha);
         imageViewShowHidePwd.setImageResource(R.drawable.ic_baseline_visibility_off_24);
         imageViewShowHidePwd.setOnClickListener(new View.OnClickListener() {
