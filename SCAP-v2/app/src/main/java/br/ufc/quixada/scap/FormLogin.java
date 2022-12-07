@@ -10,21 +10,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class FormLogin extends AppCompatActivity {
 
+    private FirebaseAuth auth;
     EditText edit_senha,edit_email;
     private TextView text_tela_de_cadastro;
     private AppCompatButton appCompatButton;
     String email,senha;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_login);
+
+        auth = FirebaseAuth.getInstance();
+
 
         IniciarComponentes();
 
@@ -37,15 +46,41 @@ public class FormLogin extends AppCompatActivity {
             }
         });
 
+
+
         appCompatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                email = edit_email.getText().toString();
+                senha = edit_senha.getText().toString();
+
+                if(email.isEmpty() || senha.isEmpty()){
+                    Toast toast = Toast.makeText(getApplicationContext(), "Preencha todos os campos!", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else {
+                    auth.signInWithEmailAndPassword(email, senha).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()){
+                                Intent intent = new Intent(FormLogin.this, MainActivity.class);
+                                startActivity(intent);
+                            }
+                            else {
+                                String error = task.getException().toString();
+                                Toast.makeText(
+                                        FormLogin.this,
+                                        "Login inválido",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+
             }
         });
 
-
-        // visualizar/ocultar senha
         ImageView imageViewShowHidePwd = findViewById(R.id.olho_senha);
         imageViewShowHidePwd.setImageResource(R.drawable.ic_baseline_visibility_off_24);
         imageViewShowHidePwd.setOnClickListener(new View.OnClickListener() {
