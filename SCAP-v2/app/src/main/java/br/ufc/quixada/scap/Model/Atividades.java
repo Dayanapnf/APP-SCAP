@@ -4,6 +4,18 @@ import java.io.Serializable;
 
 public class Atividades implements Serializable {
 
+    private static int id, countID = -1;
+    private String tipo_de_atividade;
+    private String nome_da_atividade;
+    private String descricao_da_atividade;
+    private String objetivo_da_atividade;
+    private String metodologia_da_atividade;
+    private String resultados_da_atividade;
+    private String avaliacao_da_atividade;
+    String documentID;
+
+
+
     public Atividades(String nome_da_atividade, String descricao_da_atividade, String objetivo_da_atividade, String metodologia_da_atividade, String resultados_da_atividade, String avaliacao_da_atividade) {
         this.nome_da_atividade = nome_da_atividade;
         this.descricao_da_atividade = descricao_da_atividade;
@@ -15,14 +27,6 @@ public class Atividades implements Serializable {
         this.id = countID;
     }
 
-    private static int id, countID = -1;
-    private String tipo_de_atividade;
-    private String nome_da_atividade;
-    private String descricao_da_atividade;
-    private String objetivo_da_atividade;
-    private String metodologia_da_atividade;
-    private String resultados_da_atividade;
-    private String avaliacao_da_atividade;
 
 
     public static int getId() {
@@ -87,6 +91,14 @@ public class Atividades implements Serializable {
 
     public void setAvaliacao_da_atividade(String avaliacao_da_atividade) {
         this.avaliacao_da_atividade = avaliacao_da_atividade;
+    }
+
+    public String getDocumentID() {
+        return documentID;
+    }
+
+    public void setDocumentID(String documentID) {
+        this.documentID = documentID;
     }
 
 

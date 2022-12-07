@@ -13,11 +13,13 @@ import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.ArrayList;
 
+import br.ufc.quixada.scap.FormAddAtividade;
 import br.ufc.quixada.scap.Model.Atividades;
 import br.ufc.quixada.scap.R;
 
 public class MinhasAtividadesAdapter extends RecyclerView.Adapter<MinhasAtividadesAdapter.ViewHolder> {
     ArrayList<Atividades> minhasAtividades;
+    FormAddAtividade activity;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView txtNomeAtividade, txtNomeAutor;
@@ -47,8 +49,9 @@ public class MinhasAtividadesAdapter extends RecyclerView.Adapter<MinhasAtividad
         }
     }
 
-    public MinhasAtividadesAdapter(ArrayList<Atividades> atividades){
+    public MinhasAtividadesAdapter(FormAddAtividade activity, ArrayList<Atividades> atividades){
         minhasAtividades = atividades;
+        this.activity = activity;
     }
 
     @NonNull

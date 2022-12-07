@@ -2,6 +2,8 @@ package br.ufc.quixada.scap.DAO;
 
 import android.content.Context;
 
+import java.util.ArrayList;
+
 import br.ufc.quixada.scap.Model.Atividades;
 
 public interface SCAPInterface {
@@ -10,10 +12,14 @@ public interface SCAPInterface {
         return null;
     }
 
-    boolean delete(int atvID);
+    boolean addAtividade(Atividades a);
+    boolean editAtividade(Atividades a);
+    boolean deleteAtividade(int idAtividade);
+    Atividades getAtividade(int idAtividade);
+    ArrayList<Atividades> getListaAtividades();
+
     boolean deleteAll();
-
-    boolean add(Atividades a);
-
-    boolean edit(Atividades a);
+    boolean init();
+    boolean close();
+    boolean isStarted();
 }

@@ -17,8 +17,6 @@ import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
 
 import java.util.ArrayList;
 
-import br.ufc.quixada.scap.Model.Atividades;
-
 public class MainActivity extends AppCompatActivity{
 
     private Toolbar toolbar;
@@ -40,7 +38,7 @@ public class MainActivity extends AppCompatActivity{
                 switch(item.getItemId())
                 {
                     case R.id.bottom_menu_atividades:
-                        startActivity(new Intent(getApplicationContext(), Atividades.class));
+                        startActivity(new Intent(getApplicationContext(), ListarAtividade.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.bottom_menu_inicio:

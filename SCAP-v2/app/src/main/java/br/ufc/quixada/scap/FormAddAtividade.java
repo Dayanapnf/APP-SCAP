@@ -5,12 +5,10 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -18,19 +16,18 @@ import com.google.android.material.navigation.NavigationBarView;
 import java.util.ArrayList;
 
 import br.ufc.quixada.scap.Adapters.MinhasAtividadesAdapter;
+import br.ufc.quixada.scap.DAO.AtividadesDAOFirebase;
 import br.ufc.quixada.scap.Model.Atividades;
-import br.ufc.quixada.scap.fragments.AtividadesFragment;
 
 public class FormAddAtividade extends AppCompatActivity {
 
     int id;
     EditText editNomeAtv, editDescricaoAtv, editObjetivoAtv, editMetodologiaAtv, editResultadosAtv,editAvaliacaoAtv;
-    //RadioGroup option;
     AppCompatButton btnAdd;
-    ArrayList<Atividades> atividadesList;
-    MinhasAtividadesAdapter adapter;
-    RecyclerView recyclerViewAtividades;
+    static ArrayList<Atividades> atividadesList;
     BottomNavigationView bottomNavigationView;
+    MinhasAtividadesAdapter adapter;
+    AtividadesDAOFirebase atividadesDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +35,12 @@ public class FormAddAtividade extends AppCompatActivity {
         setContentView(R.layout.activity_form_add_atividade);
         //   getSupportActionBar().hide();
 
+        atividadesDAO = (AtividadesDAOFirebase) AtividadesDAOFirebase.getInstance(this);
+        atividadesDAO.init();
+
         bottomNavigationView = findViewById(R.id.bottom_menu);
 
-
+        adapter = new MinhasAtividadesAdapter(this, atividadesList);
         bottomNavigationView.setSelectedItemId(R.id.bottom_menu_adicionar );
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -49,17 +49,23 @@ public class FormAddAtividade extends AppCompatActivity {
                 switch(item.getItemId())
                 {
                     case R.id.bottom_menu_atividades:
-                        startActivity(new Intent(getApplicationContext(), Atividades.class));
+
+                        startActivity(new Intent(getApplicationContext(), ListarAtividade.class));
                         overridePendingTransition(0,0);
                         return true;
+
                     case R.id.bottom_menu_inicio:
+
                         startActivity(new Intent(getApplicationContext(),MainActivity.class));
                         overridePendingTransition(0,0);
                         return true;
+
                     case R.id.bottom_menu_adicionar:
 
                         return true;
+
                     case R.id.bottom_menu_pet:
+
                         startActivity(new Intent(getApplicationContext(),Pet.class));
                         overridePendingTransition(0,0);
                         return true;
@@ -93,6 +99,10 @@ public class FormAddAtividade extends AppCompatActivity {
 
     }
 
+    public void notifyAdapter(){
+        adapter.notifyDataSetChanged();
+    }
+
 
     public ArrayList<Atividades> getAtividadesList() {
         return atividadesList;
@@ -112,20 +122,8 @@ public class FormAddAtividade extends AppCompatActivity {
 
         Atividades a = new Atividades(nomeAtv,descricaoAtv,objetivoAtv,metodologiaAtv,resultadosAtv,avaliacaoAtv);
 
-        atividadesList.add(a);
-
-        Intent intent = new Intent(this, AtividadesFragment.class);
-
-        intent.putExtra("Nome", a.getNome_da_atividade());
-        intent.putExtra("Descricao", a.getDescricao_da_atividade());
-        intent.putExtra("Objetivo", a.getObjetivo_da_atividade());
-        intent.putExtra("Metodologia", a.getMetodologia_da_atividade());
-        intent.putExtra("Resultados", a.getResultados_da_atividade());
-        intent.putExtra("Avaliacao", a.getAvaliacao_da_atividade());
-
-        Toast.makeText( this, "Atividade Adicionada", Toast.LENGTH_LONG ).show();
-        startActivity(intent);
-
+       atividadesDAO.addAtividade(a);
+       adapter.notifyDataSetChanged();
 
     }
 

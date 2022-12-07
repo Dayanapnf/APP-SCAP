@@ -12,13 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SCAP"
         tools:targetApi="31">
+
         <activity
             android:name=".Pet"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+            android:exported="false"/>
         <activity
             android:name=".ListarAtividade"
             android:exported="false" />

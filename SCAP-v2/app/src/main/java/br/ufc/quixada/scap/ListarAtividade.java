@@ -1,43 +1,59 @@
 package br.ufc.quixada.scap;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-
-import br.ufc.quixada.scap.Adapters.MinhasAtividadesAdapter;
-import br.ufc.quixada.scap.Model.Atividades;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class ListarAtividade extends AppCompatActivity {
 
-    FormAddAtividade f;
-    MinhasAtividadesAdapter adapter;
-    RecyclerView recyclerView = findViewById(R.id.recycle_view_listar);
+    BottomNavigationView bottomNavigationView;
 
-    ArrayList<Atividades> minhasAtividades;
-    TextView txtNome, txtDesc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_atividade);
 
-        minhasAtividades = f.getAtividadesList();
+        bottomNavigationView = findViewById(R.id.bottom_menu);
 
 
+        bottomNavigationView.setSelectedItemId(R.id.bottom_menu_atividades );
 
-        recyclerView = findViewById(R.id.recycle_view_listar);
-        adapter = new MinhasAtividadesAdapter(minhasAtividades);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId())
+                {
+                    case R.id.bottom_menu_atividades:
 
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new DividerItemDecoration( this, DividerItemDecoration.VERTICAL));
+                        return true;
+
+                    case R.id.bottom_menu_inicio:
+
+                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.bottom_menu_adicionar:
+                        startActivity(new Intent(getApplicationContext(), FormAddAtividade.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.bottom_menu_pet:
+
+                        startActivity(new Intent(getApplicationContext(),Pet.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
 
     }
 }
