@@ -6,17 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".ListarAtividade">
 
-   <!-- <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycle_view_listar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/list_atividades" /> -->
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ola">
-    </TextView>
+
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+       <androidx.recyclerview.widget.RecyclerView
+           android:id="@+id/recycle_view_listar"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           tools:listitem="@layout/list_atividades"
+
+           />
+
+   </ScrollView>
+
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
     android:id="@+id/bottom_menu"
     android:layout_width="match_parent"

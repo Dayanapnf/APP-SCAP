@@ -1,5 +1,6 @@
 package br.ufc.quixada.scap.DAO;
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -9,6 +10,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -24,9 +27,12 @@ import br.ufc.quixada.scap.Model.Atividades;
 public class AtividadesDAOFirebase implements  SCAPInterface{
 
     private static AtividadesDAOFirebase atividadesDAOFirebase = null;
+
     //private static MainActivity mainActivity;
     private static FormAddAtividade formAddAtividade;
     private FirebaseFirestore db;
+
+    private static Context context;
 
     ArrayList<Atividades> listaAtividades;
 
@@ -36,9 +42,13 @@ public class AtividadesDAOFirebase implements  SCAPInterface{
         listaAtividades = new ArrayList<>();
     }
 
-    public static SCAPInterface getInstance( FormAddAtividade formAddAtividade){
+    private AtividadesDAOFirebase(Context c){
+        AtividadesDAOFirebase.context = c;
+    }
+
+    public static SCAPInterface getInstance( Context context){
         if(atividadesDAOFirebase == null){
-            atividadesDAOFirebase = new AtividadesDAOFirebase(formAddAtividade);
+            atividadesDAOFirebase = new AtividadesDAOFirebase(context);
         }
 
         return atividadesDAOFirebase;
@@ -226,5 +236,10 @@ public class AtividadesDAOFirebase implements  SCAPInterface{
     @Override
     public boolean isStarted() {
         return false;
+    }
+
+    public DatabaseReference getMinhaAtividades() {
+        DatabaseReference referenceFirebase = FirebaseDatabase.getInstance().getReference();
+        return referenceFirebase.child("Atividades");
     }
 }

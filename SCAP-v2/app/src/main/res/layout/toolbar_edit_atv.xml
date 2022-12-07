@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@drawable/background"
+    android:id="@+id/toolbar_edit_atv"
+    app:titleTextColor="@color/white"
+    app:menu="@menu/menu_edit_atv"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Atividade"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        >
+    </TextView>
+
+
+</androidx.appcompat.widget.Toolbar>

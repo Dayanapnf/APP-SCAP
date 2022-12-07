@@ -11,27 +11,36 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.imaginativeworld.whynotimagecarousel.ImageCarousel;
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity{
+import br.ufc.quixada.scap.DAO.SCAPInterface;
 
+public class MainActivity extends AppCompatActivity{
+    private FirebaseAuth auth;
+    String nameUser;
     private Toolbar toolbar;
     BottomNavigationView  bottomNavigationView;
+    SCAPInterface scapInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        scapInterface = SCAPInterface.getInstance(MainActivity.this);
+
         bottomNavigationView = findViewById(R.id.bottom_menu);
-
-
         bottomNavigationView.setSelectedItemId(R.id.bottom_menu_inicio );
-
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

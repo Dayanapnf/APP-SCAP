@@ -9,17 +9,6 @@
     android:background="@color/white"
     android:foreground="?android:attr/selectableItemBackground">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/title_image"
-        android:layout_width="100dp"
-        android:layout_height="120dp"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/projeto01"
-        app:shapeAppearanceOverlay="@style/RoundCorner"/>
-
     <TextView
         android:id="@+id/txtAtvNome"
         android:layout_width="0dp"
@@ -32,7 +21,7 @@
         android:textSize="22dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/title_image"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -48,38 +37,16 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/title_image"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtAtvNome" />
 
-
-    <ImageView
-        android:id="@+id/itemDelete"
-        android:layout_width="32dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="8dp"
-        android:layout_weight="0.5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/itemUpdate"
-        app:layout_constraintTop_toBottomOf="@+id/txtAtvAutor"
-        app:srcCompat="@drawable/ic_baseline_delete_24" />
-
-    <ImageView
-        android:id="@+id/itemUpdate"
-        android:layout_width="32dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="180dp"
-        app:layout_constraintEnd_toStartOf="@id/itemDelete"
-        app:layout_constraintStart_toEndOf="@id/title_image"
-        app:layout_constraintTop_toBottomOf="@id/txtAtvAutor"
-        app:srcCompat="@drawable/ic_baseline_edit_24"
-        app:tint="@color/azul_pet3" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_margin="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_image"
+        app:layout_constraintTop_toBottomOf="@+id/txtAtvAutor"
         android:background="@color/azul_pet3"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
