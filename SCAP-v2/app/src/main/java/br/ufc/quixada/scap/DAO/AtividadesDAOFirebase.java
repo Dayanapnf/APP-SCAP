@@ -10,8 +10,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -161,17 +159,17 @@ public class AtividadesDAOFirebase implements  SCAPInterface{
                                 formAddAtividade.notifyAdapter();
                         }
                     })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure( Exception e) {
-                            Toast.makeText( formAddAtividade, "Error", Toast.LENGTH_LONG ).show();
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure( Exception e) {
+                                Toast.makeText( formAddAtividade, "Error", Toast.LENGTH_LONG ).show();
 
-                        }
-                    });
+                            }
+                        });
 
-        }
+            }
 
-        return false;
+            return false;
     }
 
     @Override
@@ -238,8 +236,4 @@ public class AtividadesDAOFirebase implements  SCAPInterface{
         return false;
     }
 
-    public DatabaseReference getMinhaAtividades() {
-        DatabaseReference referenceFirebase = FirebaseDatabase.getInstance().getReference();
-        return referenceFirebase.child("Atividades");
-    }
 }

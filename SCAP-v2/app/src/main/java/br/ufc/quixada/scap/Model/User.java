@@ -1,27 +1,35 @@
 package br.ufc.quixada.scap.Model;
 
-import java.util.ArrayList;
-
 public class User {
-    static int countID, id;
-    String nome, email, matricula;
-    ArrayList<Atividades> minhasAtividades;
 
-    public User(String nome, String email, String matricula, ArrayList minhasAtividades){
+    private String  id;
+    private String nome;
+    private String email;
+    private String senha;
+
+
+    public User(String id, String nome, String email, String senha){
+        this.id = id;
         this.nome = nome;
         this.email = email;
-        this.matricula = matricula;
-        this.minhasAtividades = minhasAtividades;
-        countID++;
-        this.id = countID;
+        this.senha = senha;
+
     }
 
-    public static int getId() {
+    public User(){
+
+    }
+
+    public String getSenha() {return senha;}
+
+    public void setSenha(String senha) {this.senha = senha;}
+
+    public  String getId() {
         return id;
     }
 
-    public static void setId(int id) {
-        User.id = id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -40,28 +48,7 @@ public class User {
         this.email = email;
     }
 
-    public String getMatricula() {
-        return matricula;
-    }
 
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
-    }
 
-    public ArrayList<Atividades> getMinhasAtividades() {
-        return minhasAtividades;
-    }
 
-    public void setMinhasAtividades(ArrayList<Atividades> minhasAtividades) {
-        this.minhasAtividades = minhasAtividades;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "nome='" + nome + "\n" +
-                ", email='" + email + "\n" +
-                ", matricula='" + matricula + "\n" +
-                '}';
-    }
 }

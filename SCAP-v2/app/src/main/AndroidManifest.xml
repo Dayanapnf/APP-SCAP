@@ -39,10 +39,10 @@
             android:name=".FormAddAtividade"
             android:exported="false" />
         <activity
-            android:name=".FormCadastro"
+            android:name=".auth.FormCadastro"
             android:exported="false" />
         <activity
-            android:name=".FormLogin"
+            android:name=".auth.FormLogin"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

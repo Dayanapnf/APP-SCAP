@@ -1,64 +1,109 @@
 package br.ufc.quixada.scap;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.EventListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import br.ufc.quixada.scap.Adapters.ListarAtividadesAdapter;
+import br.ufc.quixada.scap.Adapters.ListAdapter;
 import br.ufc.quixada.scap.Model.Atividades;
 
 public class ListarAtividade extends AppCompatActivity {
 
-    ArrayList<Atividades> lista;
-    ListarAtividadesAdapter listarAtividadesAdapter;
     RecyclerView recyclerView;
-    FirebaseFirestore db;
-    ProgressDialog progressDialog;
-
+    FirebaseFirestore firebaseFirestore;
+    ListAdapter atividadesAdapter;
+    List<Atividades> lista;
+    Atividades a;
+    FirebaseAuth auth;
 
     BottomNavigationView bottomNavigationView;
+    int posicao;
+    private FirestoreRecyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_atividade);
 
-
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(false);
-        progressDialog.setMessage("Procurando Dados");
-        progressDialog.show();
-
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager( this );
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
+        lista = new ArrayList<>();
         recyclerView = findViewById( R.id.recycle_view_listar );
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager( new LinearLayoutManager(this) );
 
-        db = FirebaseFirestore.getInstance();
-        lista = new ArrayList<Atividades>();
-        listarAtividadesAdapter = new ListarAtividadesAdapter(ListarAtividade.this,lista);
-        recyclerView.setAdapter(listarAtividadesAdapter);
-        EventChangeList();
+        String idAtividade = getIntent().getExtras().getString("idAtividade");
 
+        FirebaseFirestore.getInstance().collection("/Atividades")
+                .whereEqualTo("documetID", idAtividade).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for(QueryDocumentSnapshot document : task.getResult()){
+                                final Atividades atv = document.toObject(Atividades.class);
+                                lista.add(atv);
+                            }
+                        }
+                    }
+                });
+
+
+
+        /*
+        Query query = firebaseFirestore.collection("Atividades");
+        FirestoreRecyclerOptions<Atividades> options = new FirestoreRecyclerOptions.Builder<Atividades>()
+                .setQuery(query, Atividades.class).build();
+
+            adapter = new FirestoreRecyclerAdapter<Atividades, AtividadesViewHolder>(options) {
+            @NonNull
+            @Override
+            public AtividadesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_atividades, parent,false );
+                return new AtividadesViewHolder(view);
+            }
+
+            @Override
+            protected void onBindViewHolder(@NonNull AtividadesViewHolder holder, int position, @NonNull Atividades model) {
+                holder.txtNomeAtv.setText(a.getNome_da_atividade());
+                holder.txtAutorAtv.setText(a.getNome_da_atividade());
+            }
+        };
+         recyclerView.setHasFixedSize(true);
+         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+         recyclerView.setAdapter(adapter);
+
+         */
+
+
+
+
+       /* scapInterface = AtividadesDAOFirebase.getInstance( this );
+        scapInterface.init();
+        posicao = -1;
+
+        lista = scapInterface.getListaAtividades();
+        atividadesAdapter = new ListarAtividadesAdapter(this,lista);
+
+        recyclerView.setLayoutManager(  new LinearLayoutManager(this ));
+        recyclerView.setAdapter(atividadesAdapter);
+        recyclerView.addItemDecoration( new DividerItemDecoration( this, DividerItemDecoration.VERTICAL ) );
+        */
 
 
         bottomNavigationView = findViewById(R.id.bottom_menu);
@@ -96,29 +141,36 @@ public class ListarAtividade extends AppCompatActivity {
         });
 
     }
-
-    private void EventChangeList() {
-        db.collection("Atividades").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                if(error != null){
-                    if(progressDialog.isShowing())
-                        progressDialog.dismiss();
-                    Log.e("Firesore error", error.getMessage());
-                    return;
-                }
-                for(DocumentChange dc : value.getDocumentChanges()){
-                    if(dc.getType() == DocumentChange.Type.ADDED){
-                         lista.add(dc.getDocument().toObject(Atividades.class));
-                    }
-                    listarAtividadesAdapter.notifyDataSetChanged();
-                    if(progressDialog.isShowing())
-                        progressDialog.dismiss();
-
-                }
-            }
-        });
+    /*
+    public void notifyAdapter(){
+        atividadesAdapter.notifyDataSetChanged();
     }
 
 
+    private class AtividadesViewHolder extends RecyclerView.ViewHolder{
+        private TextView txtNomeAtv;
+        private TextView txtAutorAtv;
+
+        public AtividadesViewHolder(View itemView){
+            super(itemView);
+
+            txtNomeAtv = itemView.findViewById(R.id.txtAtvNome);
+            txtAutorAtv = itemView.findViewById(R.id.txtAtvAutor);
+
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+     */
 }

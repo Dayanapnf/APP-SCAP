@@ -6,6 +6,8 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import br.ufc.quixada.scap.auth.FormLogin;
+
 public class TelaAbertura extends AppCompatActivity implements Runnable {
     Thread thread;
     Handler handler;

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".FormCadastro">
+    tools:context=".auth.FormCadastro">
 
     <TextView
         android:id="@+id/title_cadastre_se"
@@ -68,7 +68,15 @@
         app:layout_constraintHorizontal_bias="0.368"
         app:layout_constraintStart_toStartOf="@id/containerComponents_cadastro"
         app:layout_constraintTop_toBottomOf="@id/edit_email" />
-
+    <ProgressBar
+        android:id="@+id/progressBarCad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_senha"
+        android:visibility="invisible"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bt_cadastrar"
@@ -77,7 +85,7 @@
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/containerComponents_cadastro" />
+        app:layout_constraintTop_toBottomOf="@id/progressBarCad" />
 
 
 

@@ -46,31 +46,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view_foto_perfil" />
 
-            <RadioGroup
-                android:id="@+id/radiogroup"
-                android:layout_width="0dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="@id/containerComponents_cadastro"
-                app:layout_constraintStart_toStartOf="@id/containerComponents_cadastro"
-                app:layout_constraintTop_toTopOf="@id/containerComponents_cadastro"
-                >
 
-                <RadioButton
-                    style="@style/radio_group"
-                    android:layout_width="150dp"
-                    android:layout_height="60dp"
-                    android:text="Tutor"
-                    android:textColor="@color/black" />
-
-                <RadioButton
-                    android:layout_width="150dp"
-                    android:layout_height="60dp"
-                    style="@style/radio_group"
-                    android:text="Bolsista"
-                    android:textColor="@color/black"/>
-            </RadioGroup>
             <EditText
                 android:id="@+id/edit_Nome"
                 style="@style/Edit_Text_perfil"
@@ -79,7 +55,7 @@
                 android:inputType="text"
                 app:layout_constraintEnd_toEndOf="@id/containerComponents_cadastro"
                 app:layout_constraintStart_toStartOf="@id/containerComponents_cadastro"
-                app:layout_constraintTop_toBottomOf="@id/radiogroup"  />
+                app:layout_constraintTop_toBottomOf="@id/containerComponents_cadastro"  />
 
             <EditText
                 android:id="@+id/edit_email"
