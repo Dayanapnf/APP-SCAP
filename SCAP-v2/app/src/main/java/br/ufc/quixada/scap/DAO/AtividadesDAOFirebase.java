@@ -18,34 +18,34 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import br.ufc.quixada.scap.FormAddAtividade;
 import br.ufc.quixada.scap.Model.Atividades;
 
-public class AtividadesDAOFirebase implements  SCAPInterface{
+public class AtividadesDAOFirebase implements SCAPInterface {
 
     private static AtividadesDAOFirebase atividadesDAOFirebase = null;
-
-    //private static MainActivity mainActivity;
     private static FormAddAtividade formAddAtividade;
     private FirebaseFirestore db;
-
     private static Context context;
+
 
     ArrayList<Atividades> listaAtividades;
 
-    private AtividadesDAOFirebase(FormAddAtividade formAddAtividade){
-        //AtividadesDAOFirebase.mainActivity = mainActivity;
+
+
+    private AtividadesDAOFirebase(FormAddAtividade formAddAtividade) {
         AtividadesDAOFirebase.formAddAtividade = formAddAtividade;
         listaAtividades = new ArrayList<>();
     }
 
-    private AtividadesDAOFirebase(Context c){
+    private AtividadesDAOFirebase(Context c) {
         AtividadesDAOFirebase.context = c;
     }
 
-    public static SCAPInterface getInstance( Context context){
-        if(atividadesDAOFirebase == null){
+    public static SCAPInterface getInstance(Context context) {
+        if (atividadesDAOFirebase == null) {
             atividadesDAOFirebase = new AtividadesDAOFirebase(context);
         }
 
@@ -54,7 +54,15 @@ public class AtividadesDAOFirebase implements  SCAPInterface{
 
     @Override
     public boolean addAtividade(Atividades a) {
+
+        String id = UUID.randomUUID().toString();
+
         Map<String, Object> atv = new HashMap<>();
+
+        atv.put("id", id);
+        atv.put("idUser", a.getUserId());
+        atv.put("Autor", a.getAutor());
+        atv.put("Tipo da Atividade", a.getTipo_de_atividade());
         atv.put("Nome da Atividade", a.getNome_da_atividade());
         atv.put("Descricao", a.getDescricao_da_atividade());
         atv.put("Objetivo", a.getObjetivo_da_atividade());
@@ -62,26 +70,24 @@ public class AtividadesDAOFirebase implements  SCAPInterface{
         atv.put("Resultados", a.getResultados_da_atividade());
         atv.put("Avaliacao", a.getAvaliacao_da_atividade());
 
+
         //adicionar novo documento com ID gerado
-        db.collection("Atividades").add(atv).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Log.d("Sucess", "DocumentSnapshot added with ID: " + documentReference.getId());
-                a.setDocumentID(documentReference.getId());
-                listaAtividades.add(a);
-                formAddAtividade.notifyAdapter();
+        db.collection("Atividades").document(id).set(atv)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
 
-                Toast.makeText(formAddAtividade, "Sucess", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(formAddAtividade, "Error",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        return true;
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(formAddAtividade, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+        return false;
     }
+
+
 
     @Override
     public boolean editAtividade(Atividades a) {
@@ -96,8 +102,8 @@ public class AtividadesDAOFirebase implements  SCAPInterface{
             public void onSuccess(Void unused) {
                 Toast.makeText(formAddAtividade, "Sucess", Toast.LENGTH_SHORT).show();
 
-                for(Atividades atividade : listaAtividades ){
-                    if(atividade.getDocumentID().equals(a.getDocumentID())){
+                for (Atividades atividade : listaAtividades) {
+                    if (atividade.getDocumentID().equals(a.getDocumentID())) {
                         atividade.setNome_da_atividade(a.getNome_da_atividade());
                         atividade.setDescricao_da_atividade(a.getDescricao_da_atividade());
                         atividade.setObjetivo_da_atividade(a.getObjetivo_da_atividade());
@@ -116,7 +122,7 @@ public class AtividadesDAOFirebase implements  SCAPInterface{
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(formAddAtividade,"Erro", Toast.LENGTH_SHORT).show();
+                Toast.makeText(formAddAtividade, "Erro", Toast.LENGTH_SHORT).show();
                 formAddAtividade.notifyAdapter();
             }
         });
@@ -128,48 +134,48 @@ public class AtividadesDAOFirebase implements  SCAPInterface{
     public boolean deleteAtividade(int idAtividade) {
         Atividades atv = null;
 
-        for( Atividades a : listaAtividades ){
-            if( a.getId() == idAtividade ) {
+        for (Atividades a : listaAtividades) {
+            if (a.getId().equals(idAtividade)) {
                 atv = a;
                 break;
             }
         }
 
-        if( atv != null ){
+        if (atv != null) {
 
             final Atividades apagar = atv;
 
-            DocumentReference deleteAtividade = db.collection("Atividades").document( atv.getDocumentID() );
+            DocumentReference deleteAtividade = db.collection("Atividades").document(atv.getDocumentID());
             deleteAtividade.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText( formAddAtividade, "Sucess", Toast.LENGTH_LONG ).show();
+                            Toast.makeText(formAddAtividade, "Sucess", Toast.LENGTH_LONG).show();
 
                             Atividades atividadeApagar = null;
-                            for( Atividades atividade : listaAtividades ){
+                            for (Atividades atividade : listaAtividades) {
 
-                                if( atividade.getDocumentID().equals( apagar.getDocumentID() ) ){
+                                if (atividade.getDocumentID().equals(apagar.getDocumentID())) {
                                     atividadeApagar = atividade;
                                     break;
                                 }
 
                             }
 
-                            if( atividadeApagar != null ) listaAtividades.remove( atividadeApagar );
-                                formAddAtividade.notifyAdapter();
+                            if (atividadeApagar != null) listaAtividades.remove(atividadeApagar);
+                            formAddAtividade.notifyAdapter();
                         }
                     })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure( Exception e) {
-                                Toast.makeText( formAddAtividade, "Error", Toast.LENGTH_LONG ).show();
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(Exception e) {
+                            Toast.makeText(formAddAtividade, "Error", Toast.LENGTH_LONG).show();
 
-                            }
-                        });
+                        }
+                    });
 
-            }
+        }
 
-            return false;
+        return false;
     }
 
     @Override
@@ -185,20 +191,20 @@ public class AtividadesDAOFirebase implements  SCAPInterface{
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 
-                    public void onComplete( Task<QuerySnapshot> task ) {
+                    public void onComplete(Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                String tipoAtividade = document.getString("Tipo da Atividade");
+                                String nomeAtividade = document.getString("Nome da Atividade");
+                                String descricaoAtividade = document.getString("Descricao");
+                                String objetivoAtividade = document.getString("Objetivo");
+                                String metodologiaAtividade = document.getString("Metodologia");
+                                String resultadosAtividade = document.getString("Resultados");
+                                String avaliacaoAtividade = document.getString("Avaliacao");
 
-                                String nomeAtividade = document.getString( "Nome da Atividade");
-                                String descricaoAtividade = document.getString( "Descricao" );
-                                String objetivoAtividade = document.getString( "Objetivo" );
-                                String metodologiaAtividade = document.getString( "Metodologia" );
-                                String resultadosAtividade = document.getString( "Resultados" );
-                                String avaliacaoAtividade = document.getString( "Avaliacao" );
-
-                                Atividades a = new Atividades(nomeAtividade,descricaoAtividade,objetivoAtividade,metodologiaAtividade,resultadosAtividade,avaliacaoAtividade);
-                                a.setDocumentID( document.getId() );
+                                Atividades a = new Atividades(tipoAtividade, nomeAtividade, descricaoAtividade, objetivoAtividade, metodologiaAtividade, resultadosAtividade, avaliacaoAtividade);
+                                a.setDocumentID(document.getId());
 
                                 listaAtividades.add(a);
 
@@ -222,7 +228,7 @@ public class AtividadesDAOFirebase implements  SCAPInterface{
 
     @Override
     public boolean init() {
-        if(db == null) db = FirebaseFirestore.getInstance();
+        if (db == null) db = FirebaseFirestore.getInstance();
         return true;
     }
 

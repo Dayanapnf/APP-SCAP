@@ -4,56 +4,60 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import br.ufc.quixada.scap.ListarAtividade;
 import br.ufc.quixada.scap.Model.Atividades;
 import br.ufc.quixada.scap.R;
 
-public class ListarAtividadesAdapter extends RecyclerView.Adapter<ListarAtividadesAdapter.MyViewHolder> {
-
+public class ListarAtividadesAdapter extends RecyclerView.Adapter<ViewHolder> {
+    ListarAtividade listarAtividade;
+    List<Atividades> atividadesList;
     Context context;
-    ArrayList<Atividades> list;
 
-    public ListarAtividadesAdapter(Context context, ArrayList<Atividades> list) {
-        this.context = context;
-        this.list = list;
+    public ListarAtividadesAdapter(ListarAtividade listarAtividade, List<Atividades> atividadesList) {
+        this.listarAtividade = listarAtividade;
+        this.atividadesList = atividadesList;
+
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.list_atividades,parent,false);
-        return new MyViewHolder(v);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.list_atividades, parent, false);
+
+        ViewHolder viewHolder = new ViewHolder(itemView);
+        viewHolder.setOnClickListener(new ViewHolder.ClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                   String nome = atividadesList.get(position).getNome_da_atividade();
+                   String autor = atividadesList.get(position).getAutor();
+
+                Toast.makeText(listarAtividade,nome + "\n" + autor,Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+
+            }
+        });
+        return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            Atividades atividades = list.get(position);
-            holder.nome.setText(atividades.getNome_da_atividade());
-            holder.autor.setText(atividades.getNome_da_atividade());
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.nome.setText(atividadesList.get(position).getNome_da_atividade());
+        holder.autor.setText(atividadesList.get(position).getAutor());
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return atividadesList.size();
     }
-
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
-
-        TextView nome, autor;
-
-        public MyViewHolder(@NonNull View itemView){
-            super(itemView);
-            nome= itemView.findViewById(R.id.txtAtvNome);
-            autor = itemView.findViewById(R.id.txtAtvAutor);
-        }
-    }
-
-
-
 }

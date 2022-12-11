@@ -45,6 +45,7 @@ public class MinhasAtividadesAdapter extends RecyclerView.Adapter<MinhasAtividad
         public ImageView getItemDelete(){
             return itemDelete;
         }
+
     }
 
     public MinhasAtividadesAdapter(FormAddAtividade activity, ArrayList<Atividades> atividades){
