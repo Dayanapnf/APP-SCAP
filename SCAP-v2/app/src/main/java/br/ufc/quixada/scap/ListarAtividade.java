@@ -100,12 +100,14 @@ public class ListarAtividade extends AppCompatActivity {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 String uid = user.getUid();
                 for (DocumentSnapshot documentSnapshot : task.getResult()) {
-                    Atividades atividades = new Atividades(documentSnapshot.getString("Nome da Atividade"),documentSnapshot.getString("Autor"));
+                    Atividades atividades = new Atividades(documentSnapshot.getString("id"),documentSnapshot.getString("Nome da Atividade"),documentSnapshot.getString("Autor"),
+                            documentSnapshot.getString("Tipo da Atividade"), documentSnapshot.getString("Descricao"),documentSnapshot.getString("Objetivo"),documentSnapshot.getString("Metodologia")
+                            ,documentSnapshot.getString("Resultados"),documentSnapshot.getString("Avaliacao"));
                     lista.add(atividades);
                 }
-                    atividadesAdapter = new ListarAtividadesAdapter(ListarAtividade.this, lista);
-                    recyclerView.setAdapter(atividadesAdapter);
-                }
+                atividadesAdapter = new ListarAtividadesAdapter(ListarAtividade.this, lista);
+                recyclerView.setAdapter(atividadesAdapter);
+            }
 
         }).addOnFailureListener(new OnFailureListener() {
             @Override

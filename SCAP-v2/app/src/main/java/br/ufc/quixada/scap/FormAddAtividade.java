@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import br.ufc.quixada.scap.Adapters.MinhasAtividadesAdapter;
 import br.ufc.quixada.scap.DAO.AtividadesDAOFirebase;
@@ -39,15 +40,15 @@ public class FormAddAtividade extends AppCompatActivity {
 
     EditText editNomeAtv, editDescricaoAtv, editObjetivoAtv, editMetodologiaAtv, editResultadosAtv, editAvaliacaoAtv;
     AppCompatButton btnAdd;
-
+    String id;
     BottomNavigationView bottomNavigationView;
     MinhasAtividadesAdapter adapter;
     AtividadesDAOFirebase atividadesDAO;
     String autor;
+
     ProgressDialog pd;
 
     FirebaseFirestore db;
-    FirebaseAuth auth;
 
 
     @Override
@@ -63,7 +64,7 @@ public class FormAddAtividade extends AppCompatActivity {
         adapter = new MinhasAtividadesAdapter(this, atividadesList);
 
         pd = new ProgressDialog(this);
-        //firestore
+
         db = FirebaseFirestore.getInstance();
 
 
@@ -100,6 +101,7 @@ public class FormAddAtividade extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 addAtividade(v);
                 Intent intent = new Intent(FormAddAtividade.this, ListarAtividade.class);
                 startActivity(intent);
@@ -142,15 +144,26 @@ public class FormAddAtividade extends AppCompatActivity {
         // buscando e retornando o id
         radioButton = (RadioButton) findViewById(selectedId);
 
+        //id do usuario logado
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
 
+
+        // pegando o nome do usuario logado
         DocumentReference documentReference = db.collection("Usuarios").document(uid);
         documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (value != null) {
+
+                    pd.setTitle("Atividade Cadastrada");
+                    pd.show();
+
+                    String ids = UUID.randomUUID().toString();
+
+                    // setando o nome do usuario
                     autor = value.getString("nome");
+                    String id = ids;
                     String userId = uid;
                     String nome_autor_atv = autor;
                     String tipoAtv = radioButton.getText().toString();
@@ -161,21 +174,18 @@ public class FormAddAtividade extends AppCompatActivity {
                     String resultadosAtv = editResultadosAtv.getText().toString();
                     String avaliacaoAtv = editAvaliacaoAtv.getText().toString();
 
-                    pd.setTitle("Atividade Cadastrada");
-                    pd.show();
 
-                    Atividades a = new Atividades(userId, nome_autor_atv, tipoAtv, nomeAtv, descricaoAtv, objetivoAtv, metodologiaAtv, resultadosAtv, avaliacaoAtv);
+                    Atividades a = new Atividades(id,userId, nome_autor_atv, tipoAtv, nomeAtv, descricaoAtv, objetivoAtv, metodologiaAtv, resultadosAtv, avaliacaoAtv);
 
                     atividadesDAO.addAtividade(a);
                     adapter.notifyDataSetChanged();
                 }
+
+
             }
         });
 
 
-
-
-
-        }
-
     }
+
+}

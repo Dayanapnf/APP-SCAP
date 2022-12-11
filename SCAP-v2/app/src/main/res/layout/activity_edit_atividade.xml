@@ -238,7 +238,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txt_avaliacao_atividade" />
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/bt_add"
+                android:id="@+id/bt_upd"
                 style="@style/button"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"

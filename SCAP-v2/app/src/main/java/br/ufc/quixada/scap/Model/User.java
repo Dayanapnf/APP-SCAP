@@ -1,11 +1,18 @@
 package br.ufc.quixada.scap.Model;
 
+import java.util.List;
+
 public class User {
 
     private String  id;
     private String nome;
     private String email;
     private String senha;
+    private List<Atividades> minhasAtividades;
+
+    public User(List<Atividades> minhasAtividades){
+        this.minhasAtividades = minhasAtividades;
+    }
 
 
     public User(String id, String nome, String email, String senha){
@@ -48,7 +55,11 @@ public class User {
         this.email = email;
     }
 
+    public List<Atividades> getMinhasAtividades() {
+        return minhasAtividades;
+    }
 
-
-
+    public void setMinhasAtividades(List<Atividades> minhasAtividades) {
+        this.minhasAtividades = minhasAtividades;
+    }
 }

@@ -18,10 +18,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import br.ufc.quixada.scap.FormAddAtividade;
 import br.ufc.quixada.scap.Model.Atividades;
+import br.ufc.quixada.scap.Model.User;
 
 public class AtividadesDAOFirebase implements SCAPInterface {
 
@@ -30,6 +30,7 @@ public class AtividadesDAOFirebase implements SCAPInterface {
     private FirebaseFirestore db;
     private static Context context;
 
+    User u;
 
     ArrayList<Atividades> listaAtividades;
 
@@ -55,11 +56,10 @@ public class AtividadesDAOFirebase implements SCAPInterface {
     @Override
     public boolean addAtividade(Atividades a) {
 
-        String id = UUID.randomUUID().toString();
 
         Map<String, Object> atv = new HashMap<>();
 
-        atv.put("id", id);
+        atv.put("id", a.getId());
         atv.put("idUser", a.getUserId());
         atv.put("Autor", a.getAutor());
         atv.put("Tipo da Atividade", a.getTipo_de_atividade());
@@ -71,8 +71,9 @@ public class AtividadesDAOFirebase implements SCAPInterface {
         atv.put("Avaliacao", a.getAvaliacao_da_atividade());
 
 
+
         //adicionar novo documento com ID gerado
-        db.collection("Atividades").document(id).set(atv)
+        db.collection("Atividades").document(a.getId()).set(atv)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

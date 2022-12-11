@@ -1,10 +1,11 @@
+
 package br.ufc.quixada.scap.Model;
 
 import java.io.Serializable;
 
 public class Atividades implements Serializable {
 
-    private static String id;
+    private String id;
     private String autor;
     private String tipo_de_atividade;
     private String nome_da_atividade;
@@ -18,11 +19,34 @@ public class Atividades implements Serializable {
     String documentID;
 
 
-    public  Atividades (String userId){
+    public Atividades(String userId) {
         this.userId = userId;
     }
 
-    public Atividades(String userId,String autor,String tipo_de_atividade, String nome_da_atividade, String descricao_da_atividade, String objetivo_da_atividade, String metodologia_da_atividade, String resultados_da_atividade, String avaliacao_da_atividade) {
+    public Atividades(String nome_da_atividade, String descricao_da_atividade, String objetivo_da_atividade, String metodologia_da_atividade, String resultados_da_atividade, String avaliacao_da_atividade) {
+
+        this.nome_da_atividade = nome_da_atividade;
+        this.descricao_da_atividade = descricao_da_atividade;
+        this.objetivo_da_atividade = objetivo_da_atividade;
+        this.metodologia_da_atividade = metodologia_da_atividade;
+        this.resultados_da_atividade = resultados_da_atividade;
+        this.avaliacao_da_atividade = avaliacao_da_atividade;
+
+    }
+    public Atividades(String id,String nome_da_atividade,String autor, String tipo_de_atividade, String descricao_da_atividade, String objetivo_da_atividade, String metodologia_da_atividade, String resultados_da_atividade, String avaliacao_da_atividade) {
+        this.id = id;
+        this.nome_da_atividade = nome_da_atividade;
+        this.autor=autor;
+        this.tipo_de_atividade=tipo_de_atividade;
+        this.descricao_da_atividade = descricao_da_atividade;
+        this.objetivo_da_atividade = objetivo_da_atividade;
+        this.metodologia_da_atividade = metodologia_da_atividade;
+        this.resultados_da_atividade = resultados_da_atividade;
+        this.avaliacao_da_atividade = avaliacao_da_atividade;
+
+    }
+    public Atividades(String id,String userId, String autor, String tipo_de_atividade, String nome_da_atividade, String descricao_da_atividade, String objetivo_da_atividade, String metodologia_da_atividade, String resultados_da_atividade, String avaliacao_da_atividade) {
+        this.id = id;
         this.userId = userId;
         this.autor = autor;
         this.tipo_de_atividade = tipo_de_atividade;
@@ -33,13 +57,8 @@ public class Atividades implements Serializable {
         this.resultados_da_atividade = resultados_da_atividade;
         this.avaliacao_da_atividade = avaliacao_da_atividade;
 
-    }
-    public Atividades (String nome_da_atividade, String autor){
-        this.nome_da_atividade = nome_da_atividade;
-        this.autor = autor;
     }
     public Atividades(String tipo_de_atividade, String nome_da_atividade, String descricao_da_atividade, String objetivo_da_atividade, String metodologia_da_atividade, String resultados_da_atividade, String avaliacao_da_atividade) {
-
         this.tipo_de_atividade = tipo_de_atividade;
         this.nome_da_atividade = nome_da_atividade;
         this.descricao_da_atividade = descricao_da_atividade;
@@ -50,18 +69,33 @@ public class Atividades implements Serializable {
 
     }
 
+    public Atividades(String nome_da_atividade, String autor) {
+        this.nome_da_atividade = nome_da_atividade;
+        this.autor = autor;
+    }
+    public Atividades(String id,String nome_da_atividade, String autor) {
+        this.id=id;
+        this.nome_da_atividade = nome_da_atividade;
+        this.autor = autor;
+    }
 
 
-    public String getUserId() {return userId;}
 
-    public void setUserId(String userId) {this.userId = userId;}
 
-    public static String getId() {
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public  String getId() {
         return id;
     }
 
-    public static void setId(String id) {
-        Atividades.id = id;
+    public  void setId(String id) {
+        this.id = id;
     }
 
     public String getTipo_de_atividade() {
@@ -72,9 +106,13 @@ public class Atividades implements Serializable {
         this.tipo_de_atividade = tipo_de_atividade;
     }
 
-    public String getAutor() {return autor;}
+    public String getAutor() {
+        return autor;
+    }
 
-    public void setAutor(String autor) {this.autor = autor;}
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
 
     public String getNome_da_atividade() {
         return nome_da_atividade;
@@ -137,6 +175,7 @@ public class Atividades implements Serializable {
     public String toString() {
         return "Atividade{" +
                 "userId" + userId + "/n" +
+                "autor" + autor + "/n" +
                 "nomeAtv='" + nome_da_atividade + "\n" +
                 ", descricaoAtv='" + descricao_da_atividade + "\n" +
                 ", objetivoAtv='" + objetivo_da_atividade + "\n" +
