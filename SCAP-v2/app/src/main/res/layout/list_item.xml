@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="10dp"
-    android:layout_marginHorizontal="8dp"
-    android:background="@color/white"
-    android:foreground="?android:attr/selectableItemBackground">
+    app:cardElevation="2dp"
+    android:padding="10dp"
+    app:cardCornerRadius="15dp"
+    app:cardBackgroundColor="@color/azul_pet3"
+    app:cardUseCompatPadding="true">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/title_image"
@@ -20,7 +21,7 @@
         app:shapeAppearanceOverlay="@style/RoundCorner"/>
 
     <TextView
-        android:id="@+id/tvCargo"
+        android:id="@+id/txt_pet"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
@@ -35,7 +36,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvNome"
+        android:id="@+id/txt_endereco"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
@@ -48,10 +49,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/title_image"
-        app:layout_constraintTop_toBottomOf="@+id/tvCargo" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_pet" />
 
     <TextView
-        android:id="@+id/tvEmail"
+        android:id="@+id/txt_contato"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
@@ -63,7 +64,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/title_image"
-        app:layout_constraintTop_toBottomOf="@+id/tvNome" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_endereco" />
 
     <View
         android:layout_width="match_parent"

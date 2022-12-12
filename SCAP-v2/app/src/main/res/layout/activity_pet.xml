@@ -5,18 +5,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Pet">
 
-   <!-- <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycle_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="layout/list_item" /> -->
 
-    <TextView
+    <ScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ola pet">
+        android:layout_above="@+id/mapView2"
+      >
 
-    </TextView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycle_view_listar_pet"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="150dp"
+            tools:listitem="@layout/list_atividades" >
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </ScrollView>
+
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_menu"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="100dp" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_menu"
         android:layout_width="match_parent"

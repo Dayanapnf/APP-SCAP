@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@drawable/background"
-    android:id="@+id/toolbar_edit_atv"
+    android:id="@+id/toolbar_atv_proposta"
     app:titleTextColor="@color/white"
-    app:menu="@menu/menu_edit_atv"
+    app:menu="@menu/menu_atv_proposta"
     >
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ATIVIDADE"
+        android:text="ATIVIDADE PROPOSTA"
         android:textColor="@color/white"
         android:textSize="22dp"
         android:fontFamily="sans-serif-black"

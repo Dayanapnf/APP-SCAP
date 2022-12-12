@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import br.ufc.quixada.scap.Edit_atividade;
 import br.ufc.quixada.scap.FormAddAtividade;
 import br.ufc.quixada.scap.Model.Atividades;
 import br.ufc.quixada.scap.Model.User;
@@ -27,6 +28,7 @@ public class AtividadesDAOFirebase implements SCAPInterface {
 
     private static AtividadesDAOFirebase atividadesDAOFirebase = null;
     private static FormAddAtividade formAddAtividade;
+    private static Edit_atividade edit_atividade;
     private FirebaseFirestore db;
     private static Context context;
 
@@ -92,8 +94,8 @@ public class AtividadesDAOFirebase implements SCAPInterface {
 
     @Override
     public boolean editAtividade(Atividades a) {
-        DocumentReference newAtividade = db.collection("Atividades").document(a.getDocumentID());
-        newAtividade.update("Nome da Atividade", a.getNome_da_atividade(),
+        db.collection("Atividades").document(a.getDocumentID())
+                .update("Tipo da Atividade",a.getTipo_de_atividade(),"Nome da Atividade", a.getNome_da_atividade(),
                 "Descricao", a.getDescricao_da_atividade(),
                 "Objetivo", a.getObjetivo_da_atividade(),
                 "Metodologia", a.getMetodologia_da_atividade(),
@@ -101,30 +103,15 @@ public class AtividadesDAOFirebase implements SCAPInterface {
                 "Avaliacao", a.getAvaliacao_da_atividade()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Toast.makeText(formAddAtividade, "Sucess", Toast.LENGTH_SHORT).show();
+                Toast.makeText(edit_atividade, "Sucess", Toast.LENGTH_SHORT).show();
+                edit_atividade.notifyAdapter();
 
-                for (Atividades atividade : listaAtividades) {
-                    if (atividade.getDocumentID().equals(a.getDocumentID())) {
-                        atividade.setNome_da_atividade(a.getNome_da_atividade());
-                        atividade.setDescricao_da_atividade(a.getDescricao_da_atividade());
-                        atividade.setObjetivo_da_atividade(a.getObjetivo_da_atividade());
-                        atividade.setMetodologia_da_atividade(a.getMetodologia_da_atividade());
-                        atividade.setResultados_da_atividade(a.getResultados_da_atividade());
-                        atividade.setAvaliacao_da_atividade(a.getAvaliacao_da_atividade());
-
-                        formAddAtividade.notifyAdapter();
-
-                        break;
-                    }
-                }
-
-                formAddAtividade.notifyAdapter();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(formAddAtividade, "Erro", Toast.LENGTH_SHORT).show();
-                formAddAtividade.notifyAdapter();
+                Toast.makeText(edit_atividade, "Erro", Toast.LENGTH_SHORT).show();
+                edit_atividade.notifyAdapter();
             }
         });
 

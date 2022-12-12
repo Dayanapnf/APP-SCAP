@@ -25,6 +25,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:id="@+id/imageview_foto_perfil"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginStart="24dp"
@@ -35,6 +36,7 @@
                 app:layout_constraintStart_toStartOf="@+id/view_foto_perfil"
                 app:layout_constraintTop_toTopOf="@+id/view_foto_perfil"
                 app:layout_constraintVertical_bias="0.6" />
+
 
             <View
                 android:id="@+id/containerComponents_cadastro"

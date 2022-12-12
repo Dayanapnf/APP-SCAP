@@ -9,7 +9,6 @@
         <item name="colorSecondary">@color/azul_pet</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">#FFFFFF</item>
-
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
@@ -21,6 +20,7 @@
     <style name="ThemeOverlay.App.BottomNavigationView" parent="">
         <item name="colorOnPrimary">@color/azul_pet</item>
     </style>
+
 
     <style name="RoundCorner" parent="">
     <item name="cornerFamily">rounded</item>

@@ -8,12 +8,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,9 +29,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
-import br.ufc.quixada.scap.Adapters.MinhasAtividadesAdapter;
+import br.ufc.quixada.scap.Adapters.ListarAtividadesAdapter;
 import br.ufc.quixada.scap.DAO.AtividadesDAOFirebase;
 import br.ufc.quixada.scap.Model.Atividades;
 
@@ -40,9 +46,8 @@ public class FormAddAtividade extends AppCompatActivity {
 
     EditText editNomeAtv, editDescricaoAtv, editObjetivoAtv, editMetodologiaAtv, editResultadosAtv, editAvaliacaoAtv;
     AppCompatButton btnAdd;
-    String id;
     BottomNavigationView bottomNavigationView;
-    MinhasAtividadesAdapter adapter;
+    ListarAtividadesAdapter adapter;
     AtividadesDAOFirebase atividadesDAO;
     String autor;
 
@@ -61,7 +66,7 @@ public class FormAddAtividade extends AppCompatActivity {
 
         atividadesDAO = (AtividadesDAOFirebase) AtividadesDAOFirebase.getInstance(this);
         atividadesDAO.init();
-        adapter = new MinhasAtividadesAdapter(this, atividadesList);
+        adapter = new ListarAtividadesAdapter(this, atividadesList);
 
         pd = new ProgressDialog(this);
 
@@ -103,6 +108,7 @@ public class FormAddAtividade extends AppCompatActivity {
             public void onClick(View v) {
 
                 addAtividade(v);
+
                 Intent intent = new Intent(FormAddAtividade.this, ListarAtividade.class);
                 startActivity(intent);
 
@@ -129,14 +135,6 @@ public class FormAddAtividade extends AppCompatActivity {
     }
 
 
-    public ArrayList<Atividades> getAtividadesList() {
-        return atividadesList;
-    }
-
-    public void setAtividadesList(ArrayList<Atividades> atividadesList) {
-        this.atividadesList = atividadesList;
-    }
-
     public void addAtividade(View view) {
 
         // recebendo o botão selecionado
@@ -156,8 +154,7 @@ public class FormAddAtividade extends AppCompatActivity {
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (value != null) {
 
-                    pd.setTitle("Atividade Cadastrada");
-                    pd.show();
+
 
                     String ids = UUID.randomUUID().toString();
 
@@ -175,9 +172,41 @@ public class FormAddAtividade extends AppCompatActivity {
                     String avaliacaoAtv = editAvaliacaoAtv.getText().toString();
 
 
+
                     Atividades a = new Atividades(id,userId, nome_autor_atv, tipoAtv, nomeAtv, descricaoAtv, objetivoAtv, metodologiaAtv, resultadosAtv, avaliacaoAtv);
 
-                    atividadesDAO.addAtividade(a);
+                    Map<String, Object> atv = new HashMap<>();
+
+                    atv.put("id", a.getId());
+                    atv.put("idUser", a.getUserId());
+                    atv.put("Autor", a.getAutor());
+                    atv.put("Tipo da Atividade", a.getTipo_de_atividade());
+                    atv.put("Nome da Atividade", a.getNome_da_atividade());
+                    atv.put("search", a.getNome_da_atividade().toLowerCase());
+                    atv.put("Descricao", a.getDescricao_da_atividade());
+                    atv.put("Objetivo", a.getObjetivo_da_atividade());
+                    atv.put("Metodologia", a.getMetodologia_da_atividade());
+                    atv.put("Resultados", a.getResultados_da_atividade());
+                    atv.put("Avaliacao", a.getAvaliacao_da_atividade());
+
+
+
+                    //adicionar novo documento com ID gerado
+                    db.collection("Atividades").document(a.getId()).set(atv)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Toast.makeText(FormAddAtividade.this, "Atividade cadastrada com sucesso!", Toast.LENGTH_SHORT).show();
+                                    FormAddAtividade.this.notifyAdapter();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(FormAddAtividade.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                    //atividadesDAO.addAtividade(a);
                     adapter.notifyDataSetChanged();
                 }
 

@@ -35,7 +35,7 @@ public class UserDAO {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.i("UserDAO", "Sucesso");
+                        Log.i("UserDAO", "Usuário cadastrado com sucesso!");
 
                     }
                 })

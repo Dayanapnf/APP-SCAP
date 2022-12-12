@@ -1,8 +1,10 @@
 package br.ufc.quixada.scap;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -39,8 +41,10 @@ public class ListarAtividade extends AppCompatActivity {
     List<Atividades> lista = new ArrayList<>();
     List<Atividades> lista_reserva = new ArrayList<>();
     String autor;
-
+    ProgressDialog pd;
     BottomNavigationView bottomNavigationView;
+    SearchView searchView;
+
 
 
     @Override
@@ -50,10 +54,30 @@ public class ListarAtividade extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
+        pd = new ProgressDialog(this);
+
         recyclerView = findViewById(R.id.recycle_view_listar);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+        searchView = findViewById(R.id.nav_search);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchData(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //filterData(newText);
+                //return true;
+                return false;
+            }
+        });
+
+
 
         showData();
 
@@ -92,6 +116,64 @@ public class ListarAtividade extends AppCompatActivity {
 
     }
 
+    private void filterData(String newText) {
+        //List<Atividades> filteredList = new ArrayList<>();
+        pd.setTitle("Buscando...");
+        pd.show();
+        db.collection("Atividades").whereEqualTo("Nome da Atividade",  newText)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        pd.dismiss();
+                        for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                            Atividades atividades = new Atividades(documentSnapshot.getString("id"),documentSnapshot.getString("Nome da Atividade"),documentSnapshot.getString("Autor"),
+                                    documentSnapshot.getString("Tipo da Atividade"), documentSnapshot.getString("Descricao"),documentSnapshot.getString("Objetivo"),documentSnapshot.getString("Metodologia")
+                                    ,documentSnapshot.getString("Resultados"),documentSnapshot.getString("Avaliacao"));
+                            lista.add(atividades);
+                        }
+                        atividadesAdapter = new ListarAtividadesAdapter(ListarAtividade.this, lista);
+                        recyclerView.setAdapter(atividadesAdapter);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        pd.dismiss();
+                        Toast.makeText(ListarAtividade.this,e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    //buscando por atividade com clique no icone de busca do teclado
+    private void searchData(String query) {
+        pd.setTitle("Buscando...");
+
+        pd.show();
+        db.collection("Atividades").whereEqualTo("search", query.toLowerCase())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        lista.clear();
+                        pd.dismiss();
+                        for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                            Atividades atividades = new Atividades(documentSnapshot.getString("id"),documentSnapshot.getString("Nome da Atividade"),documentSnapshot.getString("Autor"),
+                                    documentSnapshot.getString("Tipo da Atividade"), documentSnapshot.getString("Descricao"),documentSnapshot.getString("Objetivo"),documentSnapshot.getString("Metodologia")
+                                    ,documentSnapshot.getString("Resultados"),documentSnapshot.getString("Avaliacao"));
+                            lista.add(atividades);
+                        }
+                        atividadesAdapter = new ListarAtividadesAdapter(ListarAtividade.this, lista);
+                        recyclerView.setAdapter(atividadesAdapter);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        pd.dismiss();
+                        Toast.makeText(ListarAtividade.this,e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
     private void showData() {
 
         db.collection("Atividades").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -117,6 +199,29 @@ public class ListarAtividade extends AppCompatActivity {
         });
 
 
+    }
+
+    public  void deleteData(int index){
+        pd.setTitle("Deletando");
+        pd.show();
+
+        db.collection("Atividades").document(lista.get(index).getId())
+                .delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        lista.clear();
+                        Toast.makeText(ListarAtividade.this,"Deleted..",Toast.LENGTH_SHORT).show();
+                        pd.dismiss();
+                        showData();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        pd.dismiss();
+                        Toast.makeText(ListarAtividade.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
 }

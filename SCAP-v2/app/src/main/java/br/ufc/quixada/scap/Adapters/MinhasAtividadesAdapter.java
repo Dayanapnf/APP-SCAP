@@ -21,37 +21,43 @@ public class MinhasAtividadesAdapter extends RecyclerView.Adapter<MinhasAtividad
     ArrayList<Atividades> minhasAtividades;
     FormAddAtividade activity;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtNomeAtividade, txtNomeAutor;
         ShapeableImageView titleImage;
         ImageView itemUpdate;
         ImageView itemDelete;
 
-        public ViewHolder(@NonNull View itemView){
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             titleImage = itemView.findViewById(R.id.title_image);
             txtNomeAtividade = itemView.findViewById(R.id.txtAtvNome);
             txtNomeAutor = itemView.findViewById(R.id.txtAtvAutor);
         }
+
         public TextView getTextViewNome() {
             return txtNomeAtividade;
         }
+
         public TextView getTextViewAutor() {
             return txtNomeAutor;
         }
-        public ImageView getItemUpdate(){
+
+        public ImageView getItemUpdate() {
             return itemUpdate;
         }
-        public ImageView getItemDelete(){
+
+        public ImageView getItemDelete() {
             return itemDelete;
         }
 
     }
 
-    public MinhasAtividadesAdapter(FormAddAtividade activity, ArrayList<Atividades> atividades){
+    public MinhasAtividadesAdapter(FormAddAtividade activity, ArrayList<Atividades> atividades) {
         minhasAtividades = atividades;
         this.activity = activity;
     }
+
 
     @NonNull
     @Override
