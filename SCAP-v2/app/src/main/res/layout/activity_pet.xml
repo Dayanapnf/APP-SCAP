@@ -177,6 +177,21 @@
          </androidx.gridlayout.widget.GridLayout>
      </ScrollView>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="340dp"
+        android:layout_above="@id/bottom_menu"
+        android:layout_below="@id/scroll_view"
+        android:layout_marginTop="-15dp">
+
+        <fragment xmlns:android = "http://schemas.android.com/apk/res/android"
+            xmlns:map = "http://schemas.android.com/apk/res-auto"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
    <!-- <com.google.android.gms.maps.MapView
         android:id="@+id/mapView2"
         android:layout_width="231dp"

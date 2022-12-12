@@ -1,27 +1,42 @@
 package br.ufc.quixada.scap;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.type.LatLng;
 
-public class Pet extends AppCompatActivity {
+public class Pet extends AppCompatActivity  implements OnMapReadyCallback {
 
 
     BottomNavigationView bottomNavigationView;
+
+    GoogleMap map;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet);
 
+
         bottomNavigationView = findViewById(R.id.bottom_menu);
 
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
         bottomNavigationView.setSelectedItemId(R.id.bottom_menu_pet );
 
@@ -57,6 +72,16 @@ public class Pet extends AppCompatActivity {
         });
 
 
+
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        map = googleMap;
+
+        com.google.android.gms.maps.model.LatLng UFC = new com.google.android.gms.maps.model.LatLng(-4.979813, -39.056500);
+        map.addMarker(new MarkerOptions().position(UFC).title("UFC - Campus Quixadá"));
+        map.moveCamera(CameraUpdateFactory.newLatLng(UFC));
     }
 }
 
