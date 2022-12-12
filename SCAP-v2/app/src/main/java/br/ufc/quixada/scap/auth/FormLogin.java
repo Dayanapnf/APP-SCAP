@@ -22,6 +22,7 @@ import br.ufc.quixada.scap.R;
 
 public class FormLogin extends AppCompatActivity {
 
+
     private EditText edit_email;
     private EditText edit_senha;
     private ProgressBar progressBar;
@@ -42,6 +43,7 @@ public class FormLogin extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         userDAO = UserDAO.getInstance();
+
 
         text_tela_de_cadastro.setOnClickListener(new View.OnClickListener() {
             @Override

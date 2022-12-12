@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TelaPerfil">
+    tools:context=".Perfil">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -14,45 +14,45 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <View
-                android:id="@+id/view_foto_perfil"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginTop="50dp"
-                android:background="@drawable/container_user"
-                app:layout_constraintEnd_toEndOf="parent"
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_add_foto"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="300dp"
+                android:src="@drawable/ic_baseline_add_24"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/imageview_foto_perfil"
+                android:id="@+id/image_user"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginStart="24dp"
                 android:src="@drawable/ic_baseline_camera_alt_24"
-                app:layout_constraintBottom_toBottomOf="@+id/view_foto_perfil"
-                app:layout_constraintEnd_toEndOf="@+id/view_foto_perfil"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/view_foto_perfil"
-                app:layout_constraintTop_toTopOf="@+id/view_foto_perfil"
-                app:layout_constraintVertical_bias="0.6" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="100dp"/>
+
+
 
 
             <View
                 android:id="@+id/containerComponents_cadastro"
                 style="@style/ContainerComponents"
-                android:layout_width="400dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="50dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view_foto_perfil" />
+                app:layout_constraintTop_toBottomOf="@+id/image_user" />
 
 
             <EditText
                 android:id="@+id/edit_Nome"
                 style="@style/Edit_Text_perfil"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="30dp"
                 android:hint="Nome"
                 android:inputType="text"
                 app:layout_constraintEnd_toEndOf="@id/containerComponents_cadastro"
@@ -68,25 +68,17 @@
                 app:layout_constraintEnd_toEndOf="@id/containerComponents_cadastro"
                 app:layout_constraintStart_toStartOf="@id/containerComponents_cadastro"
                 app:layout_constraintTop_toBottomOf="@id/edit_Nome" />
-            <EditText
-                android:id="@+id/edit_senha"
-                style="@style/Edit_Text_perfil"
-                android:layout_marginTop="16dp"
-                android:hint="Senha"
-                android:inputType="text"
-                app:layout_constraintEnd_toEndOf="@id/containerComponents_cadastro"
-                app:layout_constraintStart_toStartOf="@id/containerComponents_cadastro"
-                app:layout_constraintTop_toBottomOf="@id/edit_email" />
+
 
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/bt_salvar"
                 style="@style/button"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="90dp"
                 android:text="Salvar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edit_senha" />
+                app:layout_constraintTop_toBottomOf="@id/edit_email" />
 
             <TextView
                 android:id="@+id/title_Sair"
