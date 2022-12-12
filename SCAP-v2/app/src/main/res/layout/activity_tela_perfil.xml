@@ -77,69 +77,22 @@
                 app:layout_constraintEnd_toEndOf="@id/containerComponents_cadastro"
                 app:layout_constraintStart_toStartOf="@id/containerComponents_cadastro"
                 app:layout_constraintTop_toBottomOf="@id/edit_email" />
-            <EditText
-                android:id="@+id/edit_endereço"
-                style="@style/Edit_Text_perfil"
-                android:layout_marginTop="16dp"
-                android:hint="Endereço"
-                android:inputType="text"
-                app:layout_constraintEnd_toEndOf="@id/containerComponents_cadastro"
-                app:layout_constraintStart_toStartOf="@id/containerComponents_cadastro"
-                app:layout_constraintTop_toBottomOf="@id/edit_senha" />
-            <EditText
-                android:id="@+id/edit_complemento"
-                style="@style/Edit_Text_perfil"
-                android:layout_marginTop="16dp"
-                android:hint="Complemento"
-                android:inputType="text"
-                app:layout_constraintEnd_toEndOf="@id/containerComponents_cadastro"
-                app:layout_constraintStart_toStartOf="@id/containerComponents_cadastro"
-                app:layout_constraintTop_toBottomOf="@id/edit_endereço"
-                />
-            <EditText
-                android:id="@+id/edit_cep"
-                style="@style/Edit_Text_numero"
-                android:layout_marginTop="16dp"
-                android:hint="Cep"
-                android:inputType="number"
-                app:layout_constraintEnd_toEndOf="@id/containerComponents_cadastro"
-                app:layout_constraintStart_toStartOf="@id/containerComponents_cadastro"
-                app:layout_constraintTop_toBottomOf="@id/edit_complemento"
-                />
-            <EditText
-                android:id="@+id/edit_numero"
-                style="@style/Edit_Text_numero"
-                android:layout_marginTop="16dp"
-                android:hint="Número"
-                android:inputType="number"
-                app:layout_constraintEnd_toEndOf="@id/containerComponents_cadastro"
-                app:layout_constraintStart_toStartOf="@id/containerComponents_cadastro"
-                app:layout_constraintTop_toBottomOf="@id/edit_cep"
-                />
 
-            <com.google.android.gms.maps.MapView
-                android:id="@+id/mapView"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_margin="20dp"
-                app:layout_constraintEnd_toEndOf="@id/containerComponents_cadastro"
-                app:layout_constraintStart_toStartOf="@id/containerComponents_cadastro"
-                app:layout_constraintTop_toBottomOf="@id/edit_numero" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/bt_salvar"
                 style="@style/button"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="60dp"
                 android:text="Salvar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mapView" />
+                app:layout_constraintTop_toBottomOf="@id/edit_senha" />
 
             <TextView
                 android:id="@+id/title_Sair"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="100dp"
+                android:layout_margin="90dp"
                 android:fontFamily="serif-monospace"
                 android:text="Sair"
                 android:textColor="@color/azul_pet3"

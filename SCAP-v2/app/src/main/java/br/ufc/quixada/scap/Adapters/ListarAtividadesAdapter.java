@@ -100,7 +100,7 @@ public class ListarAtividadesAdapter extends RecyclerView.Adapter<ViewHolder> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(listarAtividade);
 
                 //opçoes do display
-                String[] options = {"Editar", " Excluir"};
+                String[] options = {"Editar", "Excluir"};
                 builder.setItems(options, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

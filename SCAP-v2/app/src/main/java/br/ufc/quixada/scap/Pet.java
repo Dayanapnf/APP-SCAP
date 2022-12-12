@@ -12,6 +12,7 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class Pet extends AppCompatActivity {
 
+
     BottomNavigationView bottomNavigationView;
 
     @Override
