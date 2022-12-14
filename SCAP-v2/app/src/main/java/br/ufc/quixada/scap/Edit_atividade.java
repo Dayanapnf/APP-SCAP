@@ -4,10 +4,10 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -35,6 +35,7 @@ public class Edit_atividade extends AppCompatActivity {
     FirebaseFirestore db;
     ListarAtividadesAdapter adapter;
     AtividadesDAOFirebase dao;
+    ImageView voltar;
 
     ProgressDialog pd;
 
@@ -85,8 +86,16 @@ public class Edit_atividade extends AppCompatActivity {
             }
         });
 
+        voltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Edit_atividade.this, ListarAtividade.class);
+            }
+        });
+
         toolbar = (Toolbar) findViewById(R.id.toolbar_edit_atv);
         setSupportActionBar(toolbar);
+
 
 
 
@@ -101,6 +110,7 @@ public class Edit_atividade extends AppCompatActivity {
         editResultadosAtv = findViewById(R.id.edit_resultados);
         editAvaliacaoAtv = findViewById(R.id.edit_avaliacao);
         bt_upd = findViewById(R.id.bt_upd);
+        voltar = findViewById(R.id.ic_voltar_edit);
         radiogroup_tipo_da_atividade = (RadioGroup) findViewById(R.id.radiogroup_tipo_da_atividade);
     }
 
@@ -151,20 +161,10 @@ public class Edit_atividade extends AppCompatActivity {
 
     }
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_edit_atv,menu);
+        getMenuInflater().inflate(R.menu.menu_simples,menu);
         return true;
     }
 
-    public boolean onOptionsItemSelected( MenuItem item){
-        switch (item.getItemId()){
-            case R.id.voltar:
-                startActivity(new Intent(this,MainActivity.class));
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + item.getItemId());
-        }
-        return true;
-    }
 
 
 }

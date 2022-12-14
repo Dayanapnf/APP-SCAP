@@ -16,14 +16,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import br.ufc.quixada.scap.DAO.UserDAO;
 import br.ufc.quixada.scap.Model.User;
 import br.ufc.quixada.scap.R;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FormCadastro extends AppCompatActivity {
 
     private FirebaseAuth auth;
-
+    CircleImageView imageView;
     EditText edtNome;
     EditText edtEmail;
     EditText edtSenha;
+    String url_foto = null;
     private ProgressBar progressBar;
 
     UserDAO userDAO;
@@ -64,7 +66,7 @@ public class FormCadastro extends AppCompatActivity {
                             .addOnCompleteListener(task -> {
                                 if(task.isSuccessful()) {
                                     String uid = auth.getUid();
-                                    User users = new User(uid,nome,email,senha);
+                                    User users = new User(url_foto,uid,nome,email);
                                     FirebaseFirestore.getInstance().collection("Usuarios").document(uid).set(users);
                                     Toast.makeText(getApplicationContext(),
                                             "Cadastro concluído!",

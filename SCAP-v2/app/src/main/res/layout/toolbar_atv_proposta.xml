@@ -7,7 +7,7 @@
     android:background="@drawable/background"
     android:id="@+id/toolbar_atv_proposta"
     app:titleTextColor="@color/white"
-    app:menu="@menu/menu_atv_proposta"
+    app:menu="@menu/menu_simples"
     >
 
     <TextView

@@ -1,35 +1,37 @@
 package br.ufc.quixada.scap.Model;
 
-import java.util.List;
-
 public class User {
 
     private String  id;
     private String nome;
     private String email;
-    private String senha;
-    private List<Atividades> minhasAtividades;
-
-    public User(List<Atividades> minhasAtividades){
-        this.minhasAtividades = minhasAtividades;
-    }
 
 
-    public User(String id, String nome, String email, String senha){
+    private String url_foto;
+
+
+    public User(String id, String nome, String email){
         this.id = id;
         this.nome = nome;
         this.email = email;
-        this.senha = senha;
+    }
+
+    public User(String url_foto,String id, String nome, String email){
+        this.url_foto= url_foto;
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+
 
     }
 
     public User(){
 
     }
+    public String getUrl_foto() {return url_foto;}
 
-    public String getSenha() {return senha;}
+    public void setUrl_foto(String url_foto) {this.url_foto = url_foto;}
 
-    public void setSenha(String senha) {this.senha = senha;}
 
     public  String getId() {
         return id;
@@ -55,11 +57,4 @@ public class User {
         this.email = email;
     }
 
-    public List<Atividades> getMinhasAtividades() {
-        return minhasAtividades;
-    }
-
-    public void setMinhasAtividades(List<Atividades> minhasAtividades) {
-        this.minhasAtividades = minhasAtividades;
-    }
 }

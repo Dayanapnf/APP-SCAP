@@ -60,7 +60,10 @@ public class ListarAtividade extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        searchView = findViewById(R.id.nav_search);
+        searchView = findViewById(R.id.action_search);
+
+
+
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -76,10 +79,10 @@ public class ListarAtividade extends AppCompatActivity {
                 return false;
             }
         });
-
-
-
         showData();
+
+
+
 
 
         bottomNavigationView = findViewById(R.id.bottom_menu);
@@ -114,34 +117,6 @@ public class ListarAtividade extends AppCompatActivity {
             }
         });
 
-    }
-
-    private void filterData(String newText) {
-        //List<Atividades> filteredList = new ArrayList<>();
-        pd.setTitle("Buscando...");
-        pd.show();
-        db.collection("Atividades").whereEqualTo("Nome da Atividade",  newText)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        pd.dismiss();
-                        for (DocumentSnapshot documentSnapshot : task.getResult()) {
-                            Atividades atividades = new Atividades(documentSnapshot.getString("id"),documentSnapshot.getString("Nome da Atividade"),documentSnapshot.getString("Autor"),
-                                    documentSnapshot.getString("Tipo da Atividade"), documentSnapshot.getString("Descricao"),documentSnapshot.getString("Objetivo"),documentSnapshot.getString("Metodologia")
-                                    ,documentSnapshot.getString("Resultados"),documentSnapshot.getString("Avaliacao"));
-                            lista.add(atividades);
-                        }
-                        atividadesAdapter = new ListarAtividadesAdapter(ListarAtividade.this, lista);
-                        recyclerView.setAdapter(atividadesAdapter);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        pd.dismiss();
-                        Toast.makeText(ListarAtividade.this,e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
     }
 
     //buscando por atividade com clique no icone de busca do teclado
@@ -182,10 +157,12 @@ public class ListarAtividade extends AppCompatActivity {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 String uid = user.getUid();
                 for (DocumentSnapshot documentSnapshot : task.getResult()) {
-                    Atividades atividades = new Atividades(documentSnapshot.getString("id"),documentSnapshot.getString("Nome da Atividade"),documentSnapshot.getString("Autor"),
+                    if(documentSnapshot.getString("idUser").equals(uid)){
+                        Atividades atividades = new Atividades(documentSnapshot.getString("id"),documentSnapshot.getString("Nome da Atividade"),documentSnapshot.getString("Autor"),
                             documentSnapshot.getString("Tipo da Atividade"), documentSnapshot.getString("Descricao"),documentSnapshot.getString("Objetivo"),documentSnapshot.getString("Metodologia")
                             ,documentSnapshot.getString("Resultados"),documentSnapshot.getString("Avaliacao"));
-                    lista.add(atividades);
+                        lista.add(atividades);
+                    }
                 }
                 atividadesAdapter = new ListarAtividadesAdapter(ListarAtividade.this, lista);
                 recyclerView.setAdapter(atividadesAdapter);

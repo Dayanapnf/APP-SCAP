@@ -1,6 +1,8 @@
 package br.ufc.quixada.scap;
 
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -15,7 +17,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class Pet extends AppCompatActivity  implements OnMapReadyCallback {
+public class Pet extends AppCompatActivity  implements OnMapReadyCallback, LocationListener {
 
 
     BottomNavigationView bottomNavigationView;
@@ -62,7 +64,6 @@ public class Pet extends AppCompatActivity  implements OnMapReadyCallback {
 
                     case R.id.bottom_menu_pet:
 
-
                         return true;
                 }
                 return false;
@@ -80,6 +81,27 @@ public class Pet extends AppCompatActivity  implements OnMapReadyCallback {
         com.google.android.gms.maps.model.LatLng UFC = new com.google.android.gms.maps.model.LatLng(-4.979813, -39.056500);
         map.addMarker(new MarkerOptions().position(UFC).title("UFC - Campus Quixadá"));
         map.moveCamera(CameraUpdateFactory.newLatLng(UFC));
+
+    }
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        LocationListener.super.onStatusChanged(provider, status, extras);
+    }
+
+    @Override
+    public void onProviderEnabled(@NonNull String provider) {
+        LocationListener.super.onProviderEnabled(provider);
+    }
+
+    @Override
+    public void onProviderDisabled(@NonNull String provider) {
+        LocationListener.super.onProviderDisabled(provider);
     }
 }
 

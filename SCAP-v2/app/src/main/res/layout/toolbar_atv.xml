@@ -6,9 +6,7 @@
     android:layout_height="?attr/actionBarSize"
     android:background="@color/white"
     android:id="@+id/toolbar_atv"
-    app:menu="@menu/menu_atv"
-
-    >
+    app:menu="@menu/menu_listar">
 
 
 

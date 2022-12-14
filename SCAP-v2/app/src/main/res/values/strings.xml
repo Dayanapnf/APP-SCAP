@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">SCAP</string>
-    <string name="petsi">PET</string>
+    <string name="petsi">PET-SI</string>
+    <string name="pet">PET</string>
     <string name="bottom_inicio">Início</string>
-    <string name="bottom_atividades">Atividades</string>
+    <string name="bottom_atividades">Minhas Atv</string>
     <string name="bottom_adicionar">Adicionar</string>
     <string name="entrar">ENTRAR</string>
     <string name="text_login_cadastro">Cadastre-se aqui!</string>

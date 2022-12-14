@@ -4,11 +4,12 @@ package br.ufc.quixada.scap;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
-import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -20,6 +21,8 @@ public class Atividade extends AppCompatActivity {
     TextView editNomeAtv, editDescricaoAtv, editObjetivoAtv, editMetodologiaAtv, editResultadosAtv, editAvaliacaoAtv , tipoAtv;
 
     String Id,NomeAtv, DescricaoAtv, ObjetivoAtv, MetodologiaAtv, ResultadosAtv, AvaliacaoAtv,TipoATV;
+
+    ImageView voltar;
 
     FirebaseFirestore db;
     ListarAtividadesAdapter adapter;
@@ -49,6 +52,7 @@ public class Atividade extends AppCompatActivity {
         MetodologiaAtv = bundle.getString("metodologia");
         ResultadosAtv = bundle.getString("resultados");
         AvaliacaoAtv = bundle.getString("avaliacao");
+        voltar = findViewById(R.id.ic_voltar);
 
         //set dados
         tipoAtv.setText(TipoATV);
@@ -59,10 +63,19 @@ public class Atividade extends AppCompatActivity {
         editResultadosAtv.setText(ResultadosAtv);
         editAvaliacaoAtv.setText(AvaliacaoAtv);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar_edit_atv);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_atv_listar);
         setSupportActionBar(toolbar);
 
-    }
+        voltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Atividade.this,ListarAtividade.class);
+                startActivity(intent);
+            }
+        });
+        }
+
+
 
     public void dataInitialize() {
         tipoAtv = findViewById(R.id.txt_tipo_da_atividade);
@@ -75,20 +88,11 @@ public class Atividade extends AppCompatActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_edit_atv,menu);
+        getMenuInflater().inflate(R.menu.menu_simples,menu);
         return true;
     }
 
-    public boolean onOptionsItemSelected( MenuItem item){
-        switch (item.getItemId()){
-            case R.id.voltar:
-                startActivity(new Intent(this,ListarAtividade.class));
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + item.getItemId());
-        }
-        return true;
-    }
+
 
 
 }

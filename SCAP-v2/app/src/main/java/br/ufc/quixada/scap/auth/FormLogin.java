@@ -25,6 +25,7 @@ public class FormLogin extends AppCompatActivity {
 
     private EditText edit_email;
     private EditText edit_senha;
+    private TextView txt_senha_nova;
     private ProgressBar progressBar;
     String email,senha;
     private TextView text_tela_de_cadastro;
@@ -43,6 +44,14 @@ public class FormLogin extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         userDAO = UserDAO.getInstance();
+
+        txt_senha_nova.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FormLogin.this, RecuperarSenha.class);
+                startActivity(intent);
+            }
+        });
 
 
         text_tela_de_cadastro.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +107,7 @@ public class FormLogin extends AppCompatActivity {
         text_tela_de_cadastro= findViewById(R.id.text_tela_cadastro);
         appCompatButton = findViewById(R.id.button);
         progressBar = findViewById(R.id.progressBar);
+        txt_senha_nova = findViewById(R.id.text_tela_senha);
 
     }
     public void auth(View view) {

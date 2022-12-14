@@ -17,6 +17,7 @@ import br.ufc.quixada.scap.Atividade;
 import br.ufc.quixada.scap.Edit_atividade;
 import br.ufc.quixada.scap.FormAddAtividade;
 import br.ufc.quixada.scap.ListarAtividade;
+import br.ufc.quixada.scap.MainActivity;
 import br.ufc.quixada.scap.Model.Atividades;
 import br.ufc.quixada.scap.R;
 
@@ -27,6 +28,7 @@ public class ListarAtividadesAdapter extends RecyclerView.Adapter<ViewHolder> {
     ArrayList<Atividades> minhasAtividades;
     Edit_atividade edit_atividade;
     List<Atividades> atividadesList;
+    MainActivity mainActivity;
 
 
 
@@ -35,6 +37,12 @@ public class ListarAtividadesAdapter extends RecyclerView.Adapter<ViewHolder> {
         this.atividadesList = atividadesList;
 
     }
+    public ListarAtividadesAdapter(MainActivity mainAtividade, List<Atividades> atividadesList) {
+        this.mainActivity = mainAtividade;
+        this.atividadesList = atividadesList;
+
+    }
+
 
     public ListarAtividadesAdapter(Edit_atividade edit_atividade) {
         this.edit_atividade = edit_atividade;
@@ -79,6 +87,10 @@ public class ListarAtividadesAdapter extends RecyclerView.Adapter<ViewHolder> {
                 String avaliacao = atividadesList.get(position).getAvaliacao_da_atividade();
 
                 Intent intent = new Intent(listarAtividade, Atividade.class);
+
+
+
+
                 //enviando os dados para a activity
                 intent.putExtra("id", id);
                 intent.putExtra("tipo_da_atv", tipo_da_atv);
@@ -91,6 +103,7 @@ public class ListarAtividadesAdapter extends RecyclerView.Adapter<ViewHolder> {
 
                 //start activity
                 listarAtividade.startActivity(intent);
+
 
             }
 
