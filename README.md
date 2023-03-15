@@ -28,6 +28,21 @@ Aplicativo desenvolvido para otimizar o processo de submissão das atividades do
 
 <img src="https://user-images.githubusercontent.com/71513260/225190169-1ea35cc3-6d2b-459a-9672-7752448aa2da.png" width="400" height="400"/>
 
+#### TELAS
+
+* ABERTURA
+* LOGIN
+* CADASTRO
+* ESQUECEU A SENHA?
+* INICIAL
+* PERFIL
+* MINHAS ATIVIDADES
+* ADICIONAR ATIVIDADE
+* VISUALIZAR ATIVIDADE
+* ATUALIZAR ATIVIDADE
+* PET-SI
+
+
 
 
 
